@@ -3,7 +3,7 @@ Shop::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'categories#index'
+  root 'products#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -13,6 +13,7 @@ Shop::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
     resources :categories
+    resources :products
 
   # Example resource route with options:
   #   resources :products do
