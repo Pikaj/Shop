@@ -1,9 +1,9 @@
 Shop::Application.routes.draw do
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'products#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -14,6 +14,14 @@ Shop::Application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
     resources :categories
     resources :products
+    
+    namespace :admin do
+      resources :categories
+      resources :products
+      get '/' => "admin#index"
+    end
+
+      root 'products#index'
 
   # Example resource route with options:
   #   resources :products do

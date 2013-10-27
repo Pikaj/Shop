@@ -1,12 +1,7 @@
 
-<h1>Menu</h1>
-<tr>
-<td><%= link_to 'New product', new_product_path %></td>
-
+<br>
+<br>
 <td><%= link_to 'Categories', categories_path %></td>
-</tr>
-<br>
-<br>
 
 <h1>Listing product</h1>
 <table>
@@ -14,8 +9,6 @@
     <th>Name</th>
     <th>Price</th>
     <th>Category</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
  
@@ -30,9 +23,6 @@
     <% end %>
     </td>
     <td><%= link_to 'Show', product_path(product) %></td>
-    <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product_path(product),
-                    method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

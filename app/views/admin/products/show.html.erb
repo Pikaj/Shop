@@ -22,5 +22,6 @@
   <%= @product.info %>
 </p>
  
-
-<%= link_to 'Back to Home', products_path %>
+ 
+<%= link_to 'Edit Product', edit_admin_product_path(@product) %> |
+<%= link_to 'Back', admin_products_path %>

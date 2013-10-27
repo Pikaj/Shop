@@ -5,15 +5,9 @@
 	<tr>
 		<th>Name</th>
     	<td><%= category.category %></td>
-    	 <td><%= link_to 'Edit', edit_category_path(category) %></td>
-    	<td><%= link_to 'Destroy', category_path(category),
-                    method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
 	<% end %>
 </table>
-
-<h1>New category</h1>
-
-<%= render 'form' %>
+<br><br>
 
 <%= link_to 'Back to shop', products_path %>
