@@ -1,5 +1,7 @@
 class Admin::ProductsController < AdminController
 
+  require 'CreateProductService'
+
   def new
     @product = Product.new
   end
@@ -9,12 +11,28 @@ class Admin::ProductsController < AdminController
   end
  
   def create
-    @product = Product.new(params[:product].permit(:name, :info, :price, :category_id))
- 
-    if @product.save
+    begin
+      @product = create_product_service.process(params[:product])
+      flash[:notice] = "Create new post success"
       redirect_to admin_product_path(@product)
-    else
-      render 'new'
+    rescue CreateProductService::EmptyNameError
+      flash[:notice] =  "Error: empty name"
+      render 'admin/products/new'
+    rescue CreateProductService::EmptyPriceError
+      flash[:notice] =  "Error: empty price"
+      render 'admin/products/new'
+    rescue CreateProductService::FailedPriceError
+      flash[:notice] =  "Incorrect format price"
+      render 'admin/products/new'
+    rescue CreateProductService::NoCategoryError
+      flash[:notice] = "Please select the category."
+      render 'admin/products/new'
+    rescue CreateProductService::EmptyInfoError
+      flash[:notice] =  "Error: empty information"
+      render 'admin/products/new'
+    rescue CreateProductService::SaveProductError
+      flash[:notice] = "Failed to save post"
+      render 'admin/products/new'
     end
   end
  
@@ -28,7 +46,6 @@ class Admin::ProductsController < AdminController
 
   def update
     @product = Product.find(params[:id])
- 
     if @product.update(params[:product].permit(:name, :info, :price, :category_id))
       redirect_to admin_product_path(@product)
     else
@@ -40,7 +57,6 @@ class Admin::ProductsController < AdminController
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
- 
     redirect_to admin_products_path
   end
 
@@ -50,4 +66,7 @@ class Admin::ProductsController < AdminController
     params.require(:product).permit(:name, :info, :price, :category_id)
   end
 
+  def create_product_service
+    CreateProductService.new()
+  end
 end
