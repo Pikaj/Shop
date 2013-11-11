@@ -11,9 +11,10 @@ class Admin::ProductsController < AdminController
   end
  
   def create
+    @product = Product.new(params[:product].permit(:name, :info, :price, :category_id))
     begin
-      @product = create_product_service.process(params[:product])
-      flash[:notice] = "Create new post success"
+      create_product_service.process(@product, params[:product])
+      flash[:notice] = "Create new product success"
       redirect_to admin_product_path(@product)
     rescue CreateProductService::EmptyNameError
       flash[:notice] =  "Error: empty name"
@@ -31,7 +32,7 @@ class Admin::ProductsController < AdminController
       flash[:notice] =  "Error: empty information"
       render 'admin/products/new'
     rescue CreateProductService::SaveProductError
-      flash[:notice] = "Failed to save post"
+      flash[:notice] = "Failed to save product"
       render 'admin/products/new'
     end
   end

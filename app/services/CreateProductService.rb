@@ -6,17 +6,15 @@ class CreateProductService
   class EmptyInfoError < StandardError; end
   class SaveProductError < StandardError; end
 
-  def process(params):name
+  def process(product, params)
     raise EmptyNameError.new unless !params[:name].empty?
     raise EmptyPriceError.new unless !params[:price].empty?
     raise FailedPriceError.new unless correct_price?(params[:price])
     raise NoCategoryError.new unless !params[:category_id].empty?
     raise EmptyInfoError.new unless !params[:info].empty?
 
-    product = Product.new(params.permit(:name, :info, :price, :category_id))
     render 'new' if !product.save
     raise SaveProductError.new unless product.save
-    product
   end 
 
   def correct_price?(price)
