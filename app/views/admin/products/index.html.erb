@@ -2,8 +2,6 @@
 <h1>Menu</h1>
 <tr>
 <td><%= link_to 'New product', new_admin_product_path %></td>
-
-<td><%= link_to 'Categories', admin_categories_path %></td>
 </tr>
 <br>
 <br>
@@ -31,7 +29,7 @@
     </td>
     <td><%= link_to 'Show', admin_product_path(product) %></td>
     <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
-    <td><%= link_to 'Destroy', admin_product_path(product),
+    <td><%= link_to 'Destroy', admin_product_path(product) ,
                     method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
